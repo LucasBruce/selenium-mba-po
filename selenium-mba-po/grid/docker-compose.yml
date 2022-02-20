@@ -1,0 +1,20 @@
+selenium-hub:
+  image: selenium/hub
+  volumes:
+    - /opt/moorse/api/:/opt/moorse/api/
+  environment:
+    - GRID_MAX_SESSION=5
+  ports:
+    - "4444:4444"
+
+chrome:
+  image: selenium/node-chrome
+  volumes:
+    - /opt/moorse/api/:/opt/moorse/api/
+  links:
+    - selenium-hub:hub
+  ports:
+    - "7000:5900"
+  environment:
+    - NODE_MAX_INSTANCES=5
+    - NODE_MAX_SESSION=5
